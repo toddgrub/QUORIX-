@@ -1,4 +1,4 @@
-# ![Quorix Logo](assets/logo-placeholder.png) QUORIX
+
 
 [![Security](https://img.shields.io/badge/Security-Maximum-red)]() [![Tracking](https://img.shields.io/badge/Tracking-None-brightgreen)]() [![Architecture](https://img.shields.io/badge/JavaScript-Disabled-black)]()
 
