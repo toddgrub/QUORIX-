@@ -53,16 +53,3 @@ Quorix includes every standard industry feature, enhanced for enterprise scale.
 
 ---
 
-## ◼ Quick Start
-
-Quorix is fully web-based. There is no binary to compile for the client.
-
-### For Users
-Simply visit the deployed instance (link to your github page here) and create a room.
-
-### For Developers (Self-Hosting)
-If you require total control over your data, you can self-host Quorix on your own servers.
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/quorix.git
