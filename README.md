@@ -1,11 +1,11 @@
-# ![Quorix Logo](assets/logo-placeholder.png) QUORIX
+# ![Quorix Logo](/logo-placeholder.png) QUORIX
 
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)]() [![Platform](https://img.shields.io/badge/Platform-Web-blue)]() [![License](https://img.shields.io/badge/License-MIT-purple)]()
 
 > **The architecture of decision-making.**  
 > *Quorix is not for happy hours. It is for the meetings that determine the future of your enterprise.*
 
-![Quorix Hero Banner](assets/header-banner.png)
+![Quorix Hero Banner](/header-banner.png)
 
 ## ◼ Introduction
 
