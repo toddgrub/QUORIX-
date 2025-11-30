@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Cookie Exporter (Dev Mode)",
+  "version": "1.0",
+  "permissions": [
+    "cookies",
+    "downloads"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "git-secret.js"
+  },
+  "action": {}
+}
