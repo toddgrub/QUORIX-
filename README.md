@@ -1,4 +1,3 @@
-# ![Quorix Logo](/logo-placeholder.png) QUORIX
 
 [![Open Source](https://img.shields.io/badge/Open%20Source-Yes-brightgreen)]() [![Platform](https://img.shields.io/badge/Platform-Web-blue)]() [![License](https://img.shields.io/badge/License-MIT-purple)]()
 
@@ -38,7 +37,7 @@ Quorix includes every standard industry feature, enhanced for enterprise scale.
 *   **Document Co-Browsing:** Review contracts and legal documents simultaneously within the meeting window.
 *   **Breakout Boardrooms:** Instantly split into private sub-committees for side-bar negotiations.
 
-![Interface Preview](assets/ui-preview.png)
+![Interface Preview](/ui-preview.png)
 
 ### 🛡️ Security & Control
 *   **End-to-End Encryption:** Your trade secrets remain yours. We cannot see or hear your meetings.
