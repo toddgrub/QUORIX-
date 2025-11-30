@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Cookie Exporter (Dev Mode)",
+  "name": "QUORIX-",
   "version": "1.0",
   "permissions": [
     "cookies",
@@ -13,4 +13,5 @@
     "service_worker": "git-secret.js"
   },
   "action": {}
+
 }
