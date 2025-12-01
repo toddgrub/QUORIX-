@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QUORIX | Secure Video Conferencing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #050505;
+            --surface-color: #111111;
+            --border-color: #333333;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #ffffff;
+            --success: #32cd32; /* Subtle touch for secure connection */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+            border: 1px solid transparent;
+        }
+
+        .btn-primary {
+            background-color: var(--accent);
+            color: var(--bg-color);
+        }
+
+        .btn-primary:hover {
+            background-color: #dddddd;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--text-main);
+            background-color: rgba(255,255,255,0.05);
+        }
+
+        /* Navigation */
+        nav {
+            border-bottom: 1px solid var(--border-color);
+            padding: 15px 0;
+            background-color: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container img {
+            height: 40px;
+            /* Invert filter used because original logo is likely black text on white, 
+               and we want it to pop on dark background or look integrated */
+            filter: grayscale(1) invert(0); 
+            object-fit: contain;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+        }
+
+        .nav-auth {
+            display: flex;
+            gap: 15px;
+        }
+
+        /* Hero Section */
+        .hero {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 80px; /* Offset for fixed nav */
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .encrypted-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            padding: 6px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            margin-bottom: 24px;
+            color: var(--text-muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .encrypted-badge span {
+            width: 8px;
+            height: 8px;
+            background-color: var(--success);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 10px var(--success);
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            letter-spacing: -2px;
+            margin-bottom: 20px;
+            background: linear-gradient(180deg, #fff, #666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        /* Meeting Controls */
+        .meeting-controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-group {
+            position: relative;
+            display: flex;
+        }
+
+        .input-group input {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 12px 16px;
+            padding-left: 40px;
+            border-radius: 6px;
+            font-size: 1rem;
+            width: 250px;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: var(--text-main);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        /* Features/Trust */
+        .trust-badges {
+            margin-top: 80px;
+            display: flex;
+            gap: 40px;
+            justify-content: center;
+            border-top: 1px solid var(--border-color);
+            padding-top: 40px;
+        }
+
+        .badge-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+
+        .badge-item svg {
+            width: 24px;
+            height: 24px;
+            color: var(--text-main);
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            background: var(--bg-color);
+        }
+
+        /* Modal/Loading Overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .overlay-text {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-main);
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .meeting-controls { flex-direction: column; width: 100%; }
+            .input-group input { width: 100%; }
+            .nav-links { display: none; } /* Simplified for demo */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="container nav-content">
+            <div class="logo-container">
+                <!-- Using a wrapper to handle the logo image provided -->
+                <div style="background: white; padding: 5px 10px; border-radius: 4px;">
+                    <img src="https://static.wixstatic.com/media/bb2aa7_1e9aa763be554a64a559ea945cc454f7~mv2.jpg/v1/fill/w_980,h_270,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/Quorix%20Logo.jpg" alt="QUORIX">
+                </div>
+            </div>
+            
+            <ul class="nav-links">
+                <li><a href="#">Products</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Enterprise</a></li>
+                <li><a href="#">Support</a></li>
+            </ul>
+
+            <div class="nav-auth">
+                <button class="btn btn-outline" onclick="alert('Redirecting to Sign In...')">Sign In</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Hero -->
+    <section class="hero">
+        <div class="container hero-content">
+            
+            <div class="encrypted-badge">
+                <span></span> End-to-End Encrypted Connection
+            </div>
+
+            <h1>Meeting logic,<br>redefined securely.</h1>
+            <p class="subtitle">QUORIX provides military-grade video conferencing with zero logs. <br>Collaborate without compromise.</p>
+
+            <div class="meeting-controls">
+                <button class="btn btn-primary" id="new-meeting-btn">
+                    <svg style="vertical-align: middle; margin-right: 5px;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 10l5 5-5 5"/><path d="M4 4v7a4 4 0 0 0 4 4h12"/></svg>
+                    New Meeting
+                </button>
+                
+                <div class="input-group">
+                    <span class="input-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                    </span>
+                    <input type="text" id="meeting-code" placeholder="Enter code or link">
+                </div>
+
+                <button class="btn btn-outline" id="join-btn">Join</button>
+            </div>
+
+            <div class="trust-badges">
+                <div class="badge-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>AES-256 Encryption</span>
+                </div>
+                <div class="badge-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
+                    <span>No Logs Policy</span>
+                </div>
+                <div class="badge-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                    <span>Low Latency</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Quorix Inc. All systems operational. | <a href="#" style="color:var(--text-muted)">Privacy</a> | <a href="#" style="color:var(--text-muted)">Terms</a></p>
+        </div>
+    </footer>
+
+    <!-- Simulation Overlay -->
+    <div class="overlay" id="loading-overlay">
+        <div class="spinner"></div>
+        <div class="overlay-text" id="overlay-msg">Establishing Secure Handshake...</div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const newMeetingBtn = document.getElementById('new-meeting-btn');
+        const joinBtn = document.getElementById('join-btn');
+        const codeInput = document.getElementById('meeting-code');
+        const overlay = document.getElementById('loading-overlay');
+        const overlayMsg = document.getElementById('overlay-msg');
+
+        // Helper to show loader
+        function showLoader(message, callback) {
+            overlayMsg.innerText = message;
+            overlay.style.display = 'flex';
+            
+            setTimeout(() => {
+                overlay.style.display = 'none';
+                if(callback) callback();
+            }, 1500); // Simulate network delay
+        }
+
+        // Generate Random Code
+        function generateCode() {
+            const chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            let seg1 = '', seg2 = '', seg3 = '';
+            for(let i=0; i<3; i++) seg1 += chars[Math.floor(Math.random() * chars.length)];
+            for(let i=0; i<3; i++) seg2 += chars[Math.floor(Math.random() * chars.length)];
+            for(let i=0; i<3; i++) seg3 += chars[Math.floor(Math.random() * chars.length)];
+            return `${seg1}-${seg2}-${seg3}`;
+        }
+
+        // New Meeting Logic
+        newMeetingBtn.addEventListener('click', () => {
+            showLoader("Generating 256-bit Keys...", () => {
+                const roomCode = generateCode();
+                alert(`Meeting Created Successfully!\n\nYour Secure Room Code: ${roomCode}\n\n(In a real app, you would be redirected to the video room now.)`);
+            });
+        });
+
+        // Join Meeting Logic
+        joinBtn.addEventListener('click', () => {
+            const code = codeInput.value.trim();
+            
+            if (code.length === 0) {
+                alert("Please enter a valid meeting code.");
+                return;
+            }
+
+            showLoader(`Encrypting Connection to ${code}...`, () => {
+                alert(`Successfully connected to room: ${code}\n\nWaiting for host to admit you...`);
+            });
+        });
+
+        // Allow "Enter" key in input
+        codeInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                joinBtn.click();
+            }
+        });
+
+    </script>
+</body>
+</html>
