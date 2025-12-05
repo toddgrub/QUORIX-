@@ -65,7 +65,7 @@ To maintain the **Zero-JavaScript** security environment, Quorix must be loaded 
 
 **Every participant must follow these steps once:**
 
-1.  **Download** the latest release `.zip` file from this repository.
+1.  **Download** the latest release `quorix-release.zip` file from this repository.
 2.  **Extract** the `.zip` file to a folder on your desktop.
 3.  Open Google Chrome (or Brave/Edge) and navigate to: `chrome://extensions`
 4.  Toggle **"Developer mode"** in the top right corner.
