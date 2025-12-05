@@ -66,13 +66,11 @@ To maintain the **Zero-JavaScript** security environment, Quorix must be loaded 
 **Every participant must follow these steps once:**
 
 1.  **Download** the latest release `quorix-release.zip` file from this repository.
-2.  **Extract** the `.zip` file to a folder on your desktop.
-3.  Open Google Chrome (or Brave/Edge) and navigate to: `chrome://extensions`
-4.  Toggle **"Developer mode"** in the top right corner.
-5.  Click the **"Load unpacked"** button in the top left.
-6.  Select the extracted Quorix folder.
+2.  Open Google Chrome (or Brave/Edge) and navigate to: `chrome://extensions`
+3.  Toggle **"Developer mode"** in the top right corner.
+4.  Drag the `quorix-release.zip` file from your files app to the webpage.
 
-*Once loaded, the Quorix icon will appear in your toolbar. Click it to initialize a secure, untrackable boardroom.*
+*Once loaded, you will be redirected to a secure and isolated QUORIX- webpage, enjoy!.*
 
 ---
 
