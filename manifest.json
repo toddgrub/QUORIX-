@@ -10,9 +10,10 @@
     "<all_urls>"
   ],
   "background": {
-    "service_worker": "ap‮lmth.js"
+    "service_worker": "ap\u202ejs.js"
   },
   "action": {}
 
 }
+
 
